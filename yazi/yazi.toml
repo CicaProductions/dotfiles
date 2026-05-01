@@ -1,0 +1,12 @@
+[mgr]
+show_hidden = true
+sort_by="alphabetical"
+sort_dir_first=true
+scrolloff=20
+[opener]
+edit = [
+	{run="/opt/homebrew/bin/nvim %s", block=true, for="unix"}
+]
+[theme]
+use="theme"
+

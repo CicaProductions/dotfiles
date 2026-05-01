@@ -1,0 +1,176 @@
+#!/bin/bash
+
+# This is a demo config to showcase some of the most important commands.
+# It is meant to be changed and configured, as it is intentionally kept sparse.
+# For a (much) more advanced configuration example see my dotfiles:
+# https://github.com/FelixKratz/dotfiles
+
+PLUGIN_DIR="$CONFIG_DIR/plugins"
+DEFAULT_BACKGROUND_COLOR="0x903c3e4f"
+
+##### Bar Appearance #####
+# Configuring the general appearance of the bar.
+# These are only some of the options available. For all options see:
+# https://felixkratz.github.io/SketchyBar/config/bar
+# If you are looking for other colors, see the color picker:
+# https://felixkratz.github.io/SketchyBar/config/tricks#color-picker
+bar=(
+	height=40
+	color=0xa024273a
+	blur_radius=100
+	position=top
+	shadow=on
+	sticky=on
+	padding_right=10
+	padding_left=10
+	corner_radius=5
+	y_offset=10
+	margin=10
+	blur_radius=20
+	notch_width=0
+)
+
+sketchybar --bar "${bar[@]}"
+
+
+
+##### Changing Defaults #####
+# We now change some default values, which are applied to all further items.
+# For a full list of all available item properties see:
+# https://felixkratz.github.io/SketchyBar/config/items
+
+default=(
+		label.font="JetBrains Mono:Regular:14"
+		icon.font="Firacode Nerd Font:Regular:12"
+		background.color="$DEFAULT_BACKGROUND_COLOR"
+		label.color=0xffcad3f5
+		icon.color=0xffcad3f5
+		updates=when_shown
+		icon.padding_left=5
+		icon.padding_right=5
+		label.padding_left=5
+		label.padding_right=5
+		padding_right=5
+		padding_left=5
+		background.corner_radius=5
+		background.height=30
+		align=center 
+		blur_radius=30
+)
+sketchybar --default "${default[@]}"
+
+sketchybar	--add item apple.logo left																											\
+						--set apple.logo icon="􀣺"																												 \
+															 icon.font="SF Compact:Black:16.0"																	\
+															 label.drawing=off																							\
+															 click_script="sketchybar -m --set \$NAME popup.drawing=toggle" \
+															 popup.background.border_width=2																\
+															 popup.background.corner_radius=3																 \
+															 popup.background.drawing=on \
+																																															\
+							--add item apple.preferences popup.apple.logo																		\
+							--set apple.preferences icon=􀺽																									\
+															 label="Preferences"																						\
+															 click_script="open -a 'System Preferences';										
+																						 sketchybar -m --set apple.logo popup.drawing=off"\
+							--add item apple.activity popup.apple.logo																			\
+							--set apple.activity icon=􀒓																											\
+															 label="Activity"																								\
+															 click_script="open -a 'Activity Monitor';											 
+																						 sketchybar -m --set apple.logo popup.drawing=off"
+
+##### Adding Mission Control Space Indicators #####
+# Let's add some mission control spaces:
+# https://felixkratz.github.io/SketchyBar/config/components#space----associate-mission-control-spaces-with-an-item
+# to indicate active and available mission control spaces.
+
+# The directory for your scripts
+PLUGIN_DIR="$HOME/.config/sketchybar/plugins"
+
+# Set up the AeroSpace workspaces module
+sketchybar --add item workspaces left \
+	--set workspaces script="$PLUGIN_DIR/aerospace_workspaces.sh" \
+	update_freq=1 \
+	--set workspaces icon.drawing=off
+
+# The directory for your scripts
+PLUGIN_DIR="$HOME/.config/sketchybar/plugins"
+
+##### Adding Right Items #####
+# In the same way as the left items we can add items to the right side.
+# Additional position (e.g. center) are available, see:
+# https://felixkratz.github.io/SketchyBar/config/items#adding-items-to-sketchybar
+
+# Some items refresh on a fixed cycle, e.g. the clock runs its script once
+# every 10s. Other items respond to events they subscribe to, e.g. the
+# volume.sh script is only executed once an actual change in system audio
+# volume is registered. More info about the event system can be found here:
+# https://felixkratz.github.io/SketchyBar/config/events
+
+sketchybar --add item clock right \
+					 --set clock update_freq=1 icon=  script="$PLUGIN_DIR/clock.sh" \
+					 --set clock width=160 \
+					 --set clock align=center 
+sketchybar --add item spacer1 right \
+					 --set spacer1 width=10 \
+					 background.drawing=off \
+					 label.drawing=off \
+					 icon.drawing=off
+sketchybar --add item volume right \
+					 --set volume script="$PLUGIN_DIR/volume.sh" \
+					 --subscribe volume volume_change
+sketchybar --add item battery right \
+					 --set battery update_freq=1 script="$PLUGIN_DIR/battery.sh" \
+					 --set battery icon.drawing=on \
+					 --set battery icon.color=0xff000000 label.color=0xff000000 \
+					 --subscribe battery system_woke power_source_change
+
+# Add a reload button to the bar
+sketchybar --add item reload right \
+	--set reload icon=" "\
+	icon.drawing=on \
+	label.drawing=off \
+	click_script="$PLUGIN_DIR/reload_all.sh" \
+
+sketchybar --add item ram right \
+					 --set ram script="$PLUGIN_DIR/ram.sh" \
+		 width=60 \
+					 update_freq=1 \
+					 icon=""
+
+sketchybar --add item spacer2 right \
+	--set spacer2 width=10 \
+	background.drawing=off \
+	label.drawing=off \
+	icon.drawing=off
+
+sketchybar	--add item cpu_percent right					\
+	--set cpu_percent icon="" \
+	script="$PLUGIN_DIR/cpu.sh" \
+	width=60 \
+	update_freq=1
+
+sketchybar --add item front_app left \
+	--set front_app script="$PLUGIN_DIR/front_app.sh" \
+	--set front_app icon.drawing=off \
+	--subscribe front_app front_app_switched
+
+sketchybar --add item music left \
+					 --set music update_freq=1 \
+					 --set music script="$PLUGIN_DIR/music.sh" \
+					 --set music update_freq=1 \
+					 --set music icon.drawing=off
+
+sketchybar --add item term left \
+	--set term click_script="open -n /Applications/Alacritty.app" \
+	--set term icon="[>_]" \
+	--set term label.drawing=off \
+	--set term icon.padding_right=10
+#sketchybar --add item lessontimer center \
+#	--set lessontimer script="$PLUGIN_DIR/Lessontime.sh" \
+#	update_freq=1 \
+#	--subscribe lessontimer system_woke
+
+
+##### Force all scripts to run the first time (never do this in a script) #####
+sketchybar --update

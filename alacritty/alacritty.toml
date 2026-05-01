@@ -1,0 +1,19 @@
+general.import = ["~/.config/alacritty/aura-theme.toml"]
+[window]
+	padding.x=2
+	padding.y=2
+opacity=0.8
+decorations="buttonless"
+blur=true
+
+[font]
+normal.family="JetBrains Mono"
+size=13
+
+[env]
+TERM="xterm-256color"
+
+[selection]
+save_to_clipboard = true
+
+
