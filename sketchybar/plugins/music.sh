@@ -1,19 +1,21 @@
-
 #!/bin/bash
 
 PLAYER="Spotify"
 
-RUNNING=$(osascript -e 'tell application "System Events" to (name of processes) contains "Spotify"')
+if pgrep -x "$PLAYER" >/dev/null; then
+  STATUS=$(osascript -e 'tell application "Spotify" to get player state' 2>/dev/null)
 
-if [ "$RUNNING" = "true" ]; then
-  STATUS=$(osascript -e 'tell application "Spotify" to get player state')
-  ARTIST=$(osascript -e 'tell application "Spotify" to get artist of current track')
-  SONG=$(osascript -e 'tell application "Spotify" to get name of current track')
-  VOLUME=$(osascript -e 'tell application "Spotify" to get sound volume')
+  if [ "$STATUS" = "playing" ] || [ "$STATUS" = "paused" ]; then
+    ARTIST=$(osascript -e 'tell application "Spotify" to get artist of current track' 2>/dev/null)
+    SONG=$(osascript -e 'tell application "Spotify" to get name of current track' 2>/dev/null)
+    VOLUME=$(osascript -e 'tell application "Spotify" to get sound volume' 2>/dev/null)
 
-  OUTPUT="$SONG - $VOLUME%"
+    OUTPUT="$SONG - $VOLUME%"
+  else
+    OUTPUT="No song playing"
+  fi
 else
-  OUTPUT="No song playing"
+  OUTPUT="Spotify closed"
 fi
 
 sketchybar --set "$NAME" label="$OUTPUT"

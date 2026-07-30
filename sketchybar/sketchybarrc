@@ -87,14 +87,6 @@ sketchybar	--add item apple.logo left																											\
 # The directory for your scripts
 PLUGIN_DIR="$HOME/.config/sketchybar/plugins"
 
-# Set up the AeroSpace workspaces module
-sketchybar --add item workspaces left \
-	--set workspaces script="$PLUGIN_DIR/aerospace_workspaces.sh" \
-	update_freq=1 \
-	--set workspaces icon.drawing=off
-
-# The directory for your scripts
-PLUGIN_DIR="$HOME/.config/sketchybar/plugins"
 
 ##### Adding Right Items #####
 # In the same way as the left items we can add items to the right side.
@@ -133,10 +125,10 @@ sketchybar --add item reload right \
 	click_script="$PLUGIN_DIR/reload_all.sh" \
 
 sketchybar --add item ram right \
-					 --set ram script="$PLUGIN_DIR/ram.sh" \
-		 width=60 \
-					 update_freq=1 \
-					 icon=""
+	--set ram script="$PLUGIN_DIR/ram.sh" \
+	width=60 \
+	update_freq=1 \
+	icon=""
 
 sketchybar --add item spacer2 right \
 	--set spacer2 width=10 \

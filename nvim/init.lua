@@ -82,6 +82,19 @@ vim.opt.sidescrolloff=8
 opts = {noremap=true, silent=true}
 vim.keymap.set('n', "<leader>ff", "<cmd>lua require('telescope.builtin').find_files()<CR>", opts)
 vim.api.nvim_set_keymap('n', '<leader>fg', "<cmd>lua require('telescope.builtin').live_grep()<CR>", opts)
+vim.api.nvim_set_keymap('n', '<leader>w', "w<CR>", opts)
+vim.api.nvim_set_keymap(
+  'n',
+  '<leader>s',
+  ':source ~/.config/nvim/init.lua<CR>',
+  opts
+)
+vim.keymap.set(
+  "n",
+  "<leader>a",
+  vim.lsp.buf.code_action,
+  { desc = "Code actions" }
+)
 
 -- make background transparent
 vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
@@ -152,6 +165,15 @@ require("ibl").setup({
 })
 
 -- disabling annoying pylsp problems cuz they fuck me up
+vim.lsp.config("lua_ls", {
+  settings = {
+    Lua = {
+      diagnostics = {
+        globals = { "vim" },
+      },
+    },
+  },
+})
 vim.lsp.config("pylsp", {
 	settings = {
 		["rust-analyer"] = {
@@ -190,16 +212,6 @@ vim.lsp.config("pylsp", {
 require("mason").setup()
 require("mason-lspconfig").setup()
 
-local function read_file(path)
-	local file = io.open(path, "rb") -- r read mode and b binary mode
-	if not file then
-		return nil
-	end
-	local content = file:read("*a") -- *a or *all reads the whole file
-	file:close()
-	return content
-end
-
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
@@ -233,17 +245,6 @@ require("nvim-treesitter.configs").setup({
 	autotag={enabled=true},
 })
 require('nvim-ts-autotag').setup()
-
-local f = io.popen("date -r /Users/Cica/.config/nvim/init.lua")
-local last_modified = f:read()
-if read_file("/Users/Cica/.config/nvim/lastmodified.md") ~= last_modified then
-	vim.print("pet cute cat will ya?")
-	vim.cmd("PlugInstall")
-	wf = io.open("/Users/Cica/.config/nvim/lastmodified.md", "w")
-	wf:write(last_modified)
-	vim.cmd("q")
-	vim.cmd("e")
-end
 
 -- Set up nvim-cmp.
 local cmp = require("cmp")
@@ -438,12 +439,5 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 			pos[1] = line_count
 		end
 		vim.api.nvim_win_get_cursor(win, pos)
-	end,
-})
-vim.api.nvim_create_autocmd("BufWritePost", {
-	pattern = "init.lua",
-	callback = function()
-		dofile(vim.env.MYVIMRC)
-		vim.cmd.colorscheme("aura-dark")
 	end,
 })

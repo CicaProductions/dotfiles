@@ -6,6 +6,7 @@
                 "rules": [
                     {
                         "description": "Caps Lock: Esc when tapped, Hyper when held",
+                        "enabled": false,
                         "manipulators": [
                             {
                                 "from": {
@@ -37,6 +38,16 @@
             ],
             "name": "Main",
             "selected": true,
+            "simple_modifications": [
+                {
+                    "from": { "key_code": "caps_lock" },
+                    "to": [{ "key_code": "escape" }]
+                },
+                {
+                    "from": { "key_code": "escape" },
+                    "to": [{ "key_code": "caps_lock" }]
+                }
+            ],
             "virtual_hid_keyboard": { "keyboard_type_v2": "ansi" }
         }
     ]
