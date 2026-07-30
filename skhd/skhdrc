@@ -1,0 +1,21 @@
+# Switch to space 1-9 with Ctrl+Number (create if doesn't exist)
+ctrl - 1 : ~/.config/yabai/focus_space.sh 1
+ctrl - 2 : ~/.config/yabai/focus_space.sh 2
+ctrl - 3 : ~/.config/yabai/focus_space.sh 3
+ctrl - 4 : ~/.config/yabai/focus_space.sh 4
+ctrl - 5 : ~/.config/yabai/focus_space.sh 5
+ctrl - 6 : ~/.config/yabai/focus_space.sh 6
+ctrl - 7 : ~/.config/yabai/focus_space.sh 7
+ctrl - 8 : ~/.config/yabai/focus_space.sh 8
+ctrl - 9 : ~/.config/yabai/focus_space.sh 9
+
+# Send window to space 1-9 with Ctrl+Shift+Number
+ctrl + shift - 1 : ~/.config/yabai/send_to_space.sh 1
+ctrl + shift - 2 : ~/.config/yabai/send_to_space.sh 2
+ctrl + shift - 3 : ~/.config/yabai/send_to_space.sh 3
+ctrl + shift - 4 : ~/.config/yabai/send_to_space.sh 4
+ctrl + shift - 5 : ~/.config/yabai/send_to_space.sh 5
+ctrl + shift - 6 : ~/.config/yabai/send_to_space.sh 6
+ctrl + shift - 7 : ~/.config/yabai/send_to_space.sh 7
+ctrl + shift - 8 : ~/.config/yabai/send_to_space.sh 8
+ctrl + shift - 9 : ~/.config/yabai/send_to_space.sh 9
