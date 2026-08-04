@@ -1,7 +1,7 @@
 vim.cmd([[
 syntax on
 call plug#begin('~/.vim/plugged')
-Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate', 'branch': 'master' } " Recommended, not required.
+Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate', 'branch': 'main' } " Recommended, not required.
 Plug 'daltonmenezes/aura-theme', { 'rtp': 'packages/neovim' }
 Plug 'nvim-tree/nvim-web-devicons' " optional
 Plug 'nvim-tree/nvim-tree.lua'
@@ -58,7 +58,9 @@ set number
 
 nnoremap <C-r> <ALT-r>
 ]])
-
+vim.api.nvim_set_hl(0, "Tag", {
+    fg = "#a277ff",
+})
 -- vim keybinds
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
