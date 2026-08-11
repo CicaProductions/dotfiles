@@ -1,0 +1,124 @@
+# This is a demo config to showcase some of the most important commands.
+# It is meant to be changed and configured, as it is intentionally kept sparse.
+# For a (much) more advanced configuration example see my dotfiles:
+# https://github.com/FelixKratz/dotfiles
+
+PLUGIN_DIR="$CONFIG_DIR/plugins"
+sketchybar --default \
+  font="FiraCode Nerd Font:Regular:14" \
+  icon.font="FiraCode Nerd Font:Regular:12" \
+  icon.padding_left=8 \
+  icon.padding_right=4
+##### Bar Appearance #####
+# Configuring the general appearance of the bar.
+# These are only some of the options available. For all options see:
+# https://felixkratz.github.io/SketchyBar/config/bar
+# If you are looking for other colors, see the color picker:
+# https://felixkratz.github.io/SketchyBar/config/tricks#color-picker
+
+sketchybar --bar position=top height=40 blur_radius=30 color=0x40000000
+
+##### Changing Defaults #####
+# We now change some default values, which are applied to all further items.
+# For a full list of all available item properties see:
+# https://felixkratz.github.io/SketchyBar/config/items
+
+default=(
+  padding_left=5
+  padding_right=5
+  icon.font="Hack Nerd Font:Bold:17.0"
+  label.font="Hack Nerd Font:Bold:14.0"
+  icon.color=0xffffffff
+  label.color=0xffffffff
+  icon.padding_left=4
+  icon.padding_right=4
+  label.padding_left=4
+  label.padding_right=4
+)
+#sketchybar --default "${default[@]}"
+
+##### Adding Mission Control Space Indicators #####
+# Let's add some mission control spaces:
+# https://felixkratz.github.io/SketchyBar/config/components#space----associate-mission-control-spaces-with-an-item
+# to indicate active and available mission control spaces.
+
+SPACE_ICONS=("1" "2" "3" "4" "5" "6" "7" "8" "9" "10")
+#for i in "${!SPACE_ICONS[@]}"
+#do
+ # sid="$(($i+1))"
+  #space=(
+   # space="$sid"
+    #icon="${SPACE_ICONS[i]}"
+    #icon.padding_left=7
+    #icon.padding_right=7
+    #background.color=0x40ffffff
+    #background.corner_radius=5
+    #background.height=25
+    #label.drawing=off
+    #script="$PLUGIN_DIR/space.sh"
+    #click_script="yabai -m space --focus $sid"
+  #)
+  #sketchybar --add space space."$sid" left --set space."$sid" "${space[@]}"
+#done
+
+# The directory for your scripts
+PLUGIN_DIR="$HOME/.config/sketchybar/plugins"
+
+# Set up the AeroSpace workspaces module
+sketchybar --add item workspaces left \
+  --set workspaces script="$PLUGIN_DIR/aerospace_workspaces.sh" \
+  update_freq=1
+
+# The directory for your scripts
+PLUGIN_DIR="$HOME/.config/sketchybar/plugins"
+
+##### Adding Right Items #####
+# In the same way as the left items we can add items to the right side.
+# Additional position (e.g. center) are available, see:
+# https://felixkratz.github.io/SketchyBar/config/items#adding-items-to-sketchybar
+
+# Some items refresh on a fixed cycle, e.g. the clock runs its script once
+# every 10s. Other items respond to events they subscribe to, e.g. the
+# volume.sh script is only executed once an actual change in system audio
+# volume is registered. More info about the event system can be found here:
+# https://felixkratz.github.io/SketchyBar/config/events
+
+sketchybar --add item clock right \
+           --set clock update_freq=1 icon=  script="$PLUGIN_DIR/clock.sh" \
+           --add item volume right \
+           --set volume script="$PLUGIN_DIR/volume.sh" \
+           --subscribe volume volume_change \
+           --add item battery right \
+           --set battery update_freq=10 script="$PLUGIN_DIR/battery.sh" \
+           --set icon.drawing=on \
+           --subscribe battery system_woke power_source_change
+
+# Add a reload button to the bar
+sketchybar --add item reload right \
+  --set reload icon="" \
+  icon.padding_left=10 \
+  icon.padding_right=10 \
+  label.drawing=off \
+  click_script="$PLUGIN_DIR/reload_all.sh"
+
+# Add the main Bluetooth item
+sketchybar --add item bluetooth right \
+  --set bluetooth update_freq=10 \
+  script="$PLUGIN_DIR/bluetooth.sh" \
+  click_script="sketchybar --set bluetooth.popup drawing=toggle" \
+  popup.align=right \
+  popup.background.color=0xff282c34 \
+  popup.border_width=2 \
+  popup.border_color=0xffc678dd \
+  popup.y_offset=20 \
+  popup.label.font="FiraCode Nerd Font:Regular:12" \
+  --subscribe bluetooth mouse.entered
+
+# Add the popup items (this is the key part)
+sketchybar --add item bluetooth.popup popup.bluetooth \
+  --set bluetooth.popup drawing=off \
+  script="blueutil --paired --format json | jq -r '
+  .[] | \"--add item bluetooth.popup.\(.name) popup.bluetooth --set bluetooth.popup.\(.name) label=\(.name) click_script=\\\"blueutil --pair \(.address)\\\"\"' | xargs sketchybar"
+
+##### Force all scripts to run the first time (never do this in a script) #####
+sketchybar --update

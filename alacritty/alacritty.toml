@@ -1,0 +1,26 @@
+[general]
+import = ["~/.config/alacritty/aura-theme.toml"]
+working_directory = "~"
+
+[window]
+padding.x=2
+padding.y=2
+opacity=0.6
+blur=true
+title="terminal"
+
+[font]
+normal.family="JetBrains Mono"
+italic.family="JetBrains Mono"
+bold.family="JetBrains Mono"
+bold_italic.family="JetBrains Mono"
+
+size=13
+
+[env]
+TERM="xterm-256color"
+
+[selection]
+save_to_clipboard = true
+
+

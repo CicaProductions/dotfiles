@@ -1,0 +1,70 @@
+# aura.toml — Aura Dark inspired Yazi theme
+
+[manager]
+cwd = { fg = "#edecee" }
+hovered = { fg = "#15141b", bg = "#8B5CF6" }
+preview_hovered = { underline = true }
+
+find_keyword = { fg = "#F59E0B", italic = true }
+find_position = { fg = "#61ffca", bg = "reset", italic = true }
+
+marker_selected = { fg = "#61ffca", bg = "#61ffca" }
+marker_copied   = { fg = "#F59E0B", bg = "#F59E0B" }
+marker_cut      = { fg = "#ff6767", bg = "#ff6767" }
+
+tab_active   = { fg = "#edecee", bg = "#8B5CF6" }
+tab_inactive = { fg = "#878580", bg = "#1c1b24" }
+tab_width = 1
+
+border_symbol = "│"
+border_style  = { fg = "#6d6d6d" }
+
+[status]
+separator_open  = ""
+separator_close = ""
+separator_style = { fg = "#6d6d6d", bg = "#6d6d6d" }
+
+mode_normal = { fg = "#15141b", bg = "#8B5CF6", bold = true }
+mode_select = { fg = "#15141b", bg = "#61ffca", bold = true }
+mode_unset  = { fg = "#15141b", bg = "#ff6767", bold = true }
+
+progress_label  = { fg = "#edecee", bold = true }
+progress_normal = { fg = "#edecee", bg = "#1c1b24" }
+progress_error  = { fg = "#ff6767", bg = "#1c1b24" }
+
+permissions_t = { fg = "#8B5CF6" }
+permissions_r = { fg = "#F59E0B" }
+permissions_w = { fg = "#ff6767" }
+permissions_x = { fg = "#61ffca" }
+permissions_s = { fg = "#6d6d6d" }
+
+[input]
+border   = { fg = "#edecee" }
+title    = { fg = "#edecee", bold = true }
+value    = {}
+selected = { reversed = true }
+
+[select]
+border   = { fg = "#edecee" }
+active   = { fg = "#61ffca" }
+inactive = {}
+
+[tasks]
+border  = { fg = "#edecee" }
+title   = {}
+hovered = { underline = true }
+
+[which]
+mask            = { bg = "#1c1b24" }
+cand            = { fg = "#61ffca" }
+rest            = { fg = "#6d6d6d" }
+desc            = { fg = "#F59E0B" }
+separator       = "  "
+separator_style = { fg = "#6d6d6d" }
+
+[help]
+on      = { fg = "#F59E0B" }
+exec    = { fg = "#61ffca" }
+desc    = { fg = "#6d6d6d" }
+hovered = { bg = "#6d6d6d", bold = true }
+footer  = { fg = "#6d6d6d", bg = "#6d6d6d" }

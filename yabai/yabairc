@@ -1,0 +1,31 @@
+yabai -m config layout bsp
+yabai -m config external_bar all:60:0
+# for this to work you must configure sudo such that
+# it will be able to run the command without password
+
+yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
+sudo yabai --load-sa
+
+# .. more yabai startup stuff
+for signal in \
+  fullscreen_space_created \
+  fullscreen_space_destroyed \
+  fullscreen_window_created \
+  fullscreen_window_moved \
+  fullscreen_window_resized \
+  fullscreen_window_focused; do
+  yabai -m signal --remove "$signal" 2>/dev/null
+done
+
+yabai -m signal --add label=fullscreen_space_created event=space_created action='$HOME/.config/yabai/fullscreen_spaces.sh space_created "$YABAI_SPACE_ID" "$YABAI_SPACE_INDEX" >/tmp/yabai-fullscreen-spaces.signal.log 2>&1 &'
+yabai -m signal --add label=fullscreen_space_destroyed event=space_destroyed action='$HOME/.config/yabai/fullscreen_spaces.sh space_destroyed "$YABAI_SPACE_ID" >/tmp/yabai-fullscreen-spaces.signal.log 2>&1 &'
+yabai -m signal --add label=fullscreen_window_created event=window_created action='$HOME/.config/yabai/fullscreen_spaces.sh window_created "$YABAI_WINDOW_ID" >/tmp/yabai-fullscreen-spaces.signal.log 2>&1 &'
+yabai -m signal --add label=fullscreen_window_moved event=window_moved action='$HOME/.config/yabai/fullscreen_spaces.sh window_moved "$YABAI_WINDOW_ID" >/tmp/yabai-fullscreen-spaces.signal.log 2>&1 &'
+yabai -m signal --add label=fullscreen_window_resized event=window_resized action='$HOME/.config/yabai/fullscreen_spaces.sh window_resized "$YABAI_WINDOW_ID" >/tmp/yabai-fullscreen-spaces.signal.log 2>&1 &'
+yabai -m signal --add label=fullscreen_window_focused event=window_focused action='$HOME/.config/yabai/fullscreen_spaces.sh window_focused "$YABAI_WINDOW_ID" >/tmp/yabai-fullscreen-spaces.signal.log 2>&1 &'
+"$HOME"/.config/yabai/fullscreen_spaces.sh scan >/tmp/yabai-fullscreen-spaces.signal.log 2>&1 &
+
+yabai -m rule --add app="^Roblox$" space=2 native-fullscreen=on
+yabai -m rule --add app="^Factorio$" space=2 native-fullscreen=on
+yabai -m rule --add app="^From_The_Depths$" space=2 native-fullscreen=on
+yabai -m rule --add app="^Cult of the Lamb$" space=2 native-fullscreen=on

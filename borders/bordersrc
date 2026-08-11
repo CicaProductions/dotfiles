@@ -1,0 +1,12 @@
+#!/bin/bash
+
+options=(
+  active_color=0xaaaa9500c99
+  innactive_color=gradient(top_left=0xcc383838,bottom_right=0xccffffff)
+  width=3.0
+  # You can add more options here, like:
+  style=round
+  hidpi=on
+)
+
+borders "${options[@]}"

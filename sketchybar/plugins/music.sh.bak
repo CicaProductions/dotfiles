@@ -1,0 +1,12 @@
+#!/bin/bash
+PLAYERS=("Spotify")
+for PLAYER in "${PLAYERS[@]}"; do
+if [[ "$(pgrep $PLAYER)" != "" ]]; then
+STATUS=$(osascript -e "tell application \"$PLAYER\" to get player state")
+ARTIST=$(osascript -e "tell application \"$PLAYER\" to get artist of current track as string")
+SONG=$(osascript -e "tell application \"$PLAYER\" to get name of current track as string")
+VOLUME=$(osascript -e 'tell application "Spotify" to get sound volume')
+OUTPUT="$SONG - $VOLUME%"
+fi
+done
+sketchybar --set "$NAME" label="$OUTPUT"
