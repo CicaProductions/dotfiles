@@ -241,11 +241,6 @@ require("nvim-tree").setup({
 	},
 })
 
-require("nvim-treesitter.configs").setup({
-	ensure_installed={"html","javascript","typescript","tsx"},
-	highlight = { enable = true },
-	autotag={enabled=true},
-})
 require('nvim-ts-autotag').setup()
 
 -- Set up nvim-cmp.
