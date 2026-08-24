@@ -166,6 +166,14 @@ require("ibl").setup({
 	},
 })
 
+require("nvim-treesitter").setup()
+
+vim.api.nvim_create_autocmd("FileType", {
+  callback = function()
+    pcall(vim.treesitter.start)
+  end,
+})
+
 -- disabling annoying pylsp problems cuz they fuck me up
 vim.lsp.config("lua_ls", {
   settings = {
