@@ -44,6 +44,9 @@ Plug 'brenoprata10/nvim-highlight-colors'
 " Git
 Plug 'lewis6991/gitsigns.nvim'
 
+" Bullet points
+Plug 'bullets-vim/bullets.nvim'
+
 " Plug 'embark-theme/vim', { 'as': 'embark', 'branch': 'main' }
 " Put your plugins here
 " Example: Plug 'morhetz/gruvbox'
@@ -106,6 +109,7 @@ vim.api.nvim_set_hl(0, "EndOfBuffer", { bg = "none" })
 -- Enable list mode (needed for indent guides)
 vim.opt.list = true
 vim.opt.listchars:append("space: ")
+require("bullets").setup({})
 
 -- Create highlight groups FIRST
 local function set_aura_indent_colors()
