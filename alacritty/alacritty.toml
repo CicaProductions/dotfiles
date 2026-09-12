@@ -1,6 +1,6 @@
 [general]
 import = ["~/.config/alacritty/aura-theme.toml"]
-working_directory = "~"
+#working_directory = "~"
 
 [window]
 padding.x=2
