@@ -1,5 +1,8 @@
 yabai -m config layout bsp
-yabai -m config external_bar all:60:0
+yabai -m config external_bar all:70:0
+yabai -m config left_padding 10
+yabai -m config right_padding 10
+yabai -m config bottom_padding 10
 # for this to work you must configure sudo such that
 # it will be able to run the command without password
 
