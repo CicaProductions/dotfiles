@@ -450,3 +450,9 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 		vim.api.nvim_win_get_cursor(win, pos)
 	end,
 })
+vim.filetype.add({
+  extension = {
+    metal = "cpp",
+  },
+})
+vim.treesitter.language.register("cpp", "metal")
