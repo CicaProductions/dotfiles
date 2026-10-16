@@ -1,14 +1,8 @@
-import time
+import {time
+        json}
 
-schedule = [
-    ["8:50", "9:00"],
-    ["9:00", "9:45"],
-    ["9:55", "10:40"],
-    ["11:00", "11:45"],
-    ["11:55", "12:40"],
-    ["13:20", "14:05"],
-    ["14:15", "15:00"],
-]
+with open(/Users/Cica/.config/classtimer/config.json) as f:
+    json.parse(f.read())
 curtime = time.localtime()
 
 
