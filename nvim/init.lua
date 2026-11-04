@@ -207,6 +207,7 @@ vim.lsp.config("pylsp", {
 						"E712", -- no "is cond" errors
 						"E741", -- no "ambiguous variable name" errors
 						"E402", -- imports not at top
+						"E401",
 						"E203", -- whitespace between operator
 						"W503", -- line break before binary operator
 					},
