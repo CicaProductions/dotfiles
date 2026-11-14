@@ -255,6 +255,12 @@ require("nvim-tree").setup({
 })
 
 require('nvim-ts-autotag').setup()
+vim.lsp.config("asm_lsp", {
+    cmd = { "asm-lsp" },
+    filetypes = { "asm" },
+})
+
+vim.lsp.enable("asm_lsp")
 
 -- Set up nvim-cmp.
 local cmp = require("cmp")
