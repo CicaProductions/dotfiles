@@ -1,66 +1,45 @@
 vim.cmd([[
 syntax on
-call plug#begin('~/.vim/plugged')
-Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate', 'branch': 'main' } " Recommended, not required.
-Plug 'daltonmenezes/aura-theme', { 'rtp': 'packages/neovim' }
-Plug 'nvim-tree/nvim-web-devicons' " optional
-Plug 'nvim-tree/nvim-tree.lua'
-Plug 'tpope/vim-endwise'
-Plug 'neovim/nvim-lspconfig'
-Plug 'ray-x/lsp_signature.nvim'
-
-" CMP direct requriements
-Plug 'hrsh7th/cmp-nvim-lsp'
-Plug 'hrsh7th/cmp-buffer'
-Plug 'hrsh7th/cmp-path'
-Plug 'hrsh7th/cmp-cmdline'
-Plug 'hrsh7th/nvim-cmp'
-Plug 'onsails/lspkind-nvim'
-
-" Vsnip, whatever it is
-Plug 'hrsh7th/vim-vsnip'
-Plug 'hrsh7th/vim-vsnip-integ'
-
-" Installing mason, LSP manager
-Plug 'williamboman/mason.nvim'
-Plug 'williamboman/mason-lspconfig.nvim'
-
-" Telescope
-Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim', { 'tag': 'v0.2.0' }
-
-" Rust stuffs
-Plug 'rust-lang/rust.vim'
-
-" Indentation prettiness
-Plug 'lukas-reineke/indent-blankline.nvim'
-
-" For HTML autocomplete stuff
-Plug 'windwp/nvim-ts-autotag'
-
-" For colorizing color text
-Plug 'brenoprata10/nvim-highlight-colors'
-
-" Git
-Plug 'lewis6991/gitsigns.nvim'
-
-" Bullet points
-Plug 'bullets-vim/bullets.nvim'
-
-" Plug 'embark-theme/vim', { 'as': 'embark', 'branch': 'main' }
-" Put your plugins here
-" Example: Plug 'morhetz/gruvbox'
-
-call plug#end()
 set clipboard+=unnamedplus
-
-colorscheme aura-dark
 " Do it in a different file, idk if it deletes contents but i wouldnt risk it
 " colorscheme embark
 set number
 
 nnoremap <C-r> <ALT-r>
 ]])
+vim.pack.add({
+	{ src="https://github.com/nvim-treesitter/nvim-treesitter", version='main' },
+	{ src="https://github.com/daltonmenezes/aura-theme" },
+	{ src="https://github.com/nvim-tree/nvim-web-devicons"},
+	{ src="https://github.com/nvim-tree/nvim-tree.lua"},
+	{ src="https://github.com/tpope/vim-endwise"},
+	{ src="https://github.com/neovim/nvim-lspconfig"},
+	{ src="https://github.com/ray-x/lsp_signature.nvim"},
+	{ src="https://github.com/hrsh7th/cmp-nvim-lsp"},
+	{ src="https://github.com/hrsh7th/cmp-buffer"},
+	{ src="https://github.com/hrsh7th/cmp-path"},
+	{ src="https://github.com/hrsh7th/cmp-cmdline"},
+	{ src="https://github.com/hrsh7th/nvim-cmp"},
+	{ src="https://github.com/onsails/lspkind-nvim"},
+	{ src="https://github.com/hrsh7th/vim-vsnip"},
+	{ src="https://github.com/hrsh7th/vim-vsnip-integ"},
+	{ src="https://github.com/williamboman/mason.nvim"},
+	{ src="https://github.com/williamboman/mason-lspconfig.nvim"},
+	{ src="https://github.com/nvim-lua/plenary.nvim"},
+	{ src="https://github.com/nvim-telescope/telescope.nvim"},
+	{ src="https://github.com/rust-lang/rust.vim"},
+	{ src="https://github.com/lukas-reineke/indent-blankline.nvim"},
+	{ src="https://github.com/windwp/nvim-ts-autotag"},
+	{ src="https://github.com/brenoprata10/nvim-highlight-colors"},
+	{ src="https://github.com/lewis6991/gitsigns.nvim"},
+	{ src="https://github.com/bullets-vim/bullets.nvim"},
+})
+
+vim.opt.rtp:append(
+    vim.fn.stdpath("data") .. "/site/pack/core/opt/aura-theme/packages/neovim"
+)
+vim.cmd.colorscheme("aura-dark")
+
 vim.api.nvim_set_hl(0, "Tag", {
     fg = "#a277ff",
 })
