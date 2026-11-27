@@ -45,7 +45,7 @@
             "devices": [
                 {
                     "identifiers": { "is_consumer": true },
-                    "ignore": true
+                    "ignore": false
                 }
             ],
             "fn_function_keys": [
